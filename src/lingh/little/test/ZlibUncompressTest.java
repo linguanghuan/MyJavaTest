@@ -8,15 +8,15 @@ import org.apache.commons.codec.binary.Base64;
 * @author linguanghuan
 * @Time 2017-01-09 14:41:55
 * @Desc 
-*    linux c zlib¿â µÄjava½âÑ¹·½Ê½
-*    base64ÓÃ:commons-codec-1.10.jar http://commons.apache.org/
+*    linux c zlibåº“ çš„javaè§£å‹æ–¹å¼
+*    base64ç”¨:commons-codec-1.10.jar http://commons.apache.org/
 */
 public class ZlibUncompressTest {
 	
     /**
      * @Desc
-     *     ÒòÎªzlibµÄ½á¹ûÊÇ¶ş½øÖÆµÄĞÎÊ½, ËùÒÔÕâÀïÊÇÓÃbase64±àÂëºóµÄ×Ö·û´®×ö²âÊÔ
-     *     base64½âÂëºóµÄ¶ş½øÖÆ¾ÍÊÇzlibÑ¹ËõµÄ¸ñÊ½
+     *     å› ä¸ºzlibçš„ç»“æœæ˜¯äºŒè¿›åˆ¶çš„å½¢å¼, æ‰€ä»¥è¿™é‡Œæ˜¯ç”¨base64ç¼–ç åçš„å­—ç¬¦ä¸²åšæµ‹è¯•
+     *     base64è§£ç åçš„äºŒè¿›åˆ¶å°±æ˜¯zlibå‹ç¼©çš„æ ¼å¼
      */
     private static void zlibUncompressTest() throws Exception {
         System.out.println("linux zlib uncompress test");
