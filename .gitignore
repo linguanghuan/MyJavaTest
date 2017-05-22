@@ -2,3 +2,5 @@
 /dependency/
 /.classpath
 /.project
+/target
+/.settings
