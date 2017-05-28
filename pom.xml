@@ -10,6 +10,14 @@
 			<artifactId>commons-codec</artifactId>
 			<version>1.10</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/com.sun.jdmk/jmxtools -->
+		<dependency>
+			<groupId>com.sun.jdmk</groupId>
+			<artifactId>jmxtools</artifactId>
+			<version>1.2.1</version>
+		</dependency>
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
@@ -17,6 +25,13 @@
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
+	<repositories>
+		<repository>
+			<id>homer.core</id>
+			<name>homer.core</name>
+			<url>https://nexus.arcsmed.at/content/repositories/homer.core</url>
+		</repository>
+	</repositories>
 	<build>
 		<plugins>
 			<plugin>
