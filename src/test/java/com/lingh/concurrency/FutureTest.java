@@ -2,6 +2,7 @@ package com.lingh.concurrency;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
@@ -23,8 +24,10 @@ public class FutureTest {
         @Override
         public String call() throws Exception {
             String threadName = String.valueOf(Thread.currentThread().getName()) + "_" + id;
-            System.out.printf("%s : start\n", threadName);
-            Thread.sleep(1000);
+            int random = new Random().nextInt(5);
+            random++;
+            System.out.printf("%s, %d : start\n", threadName, random);
+            Thread.sleep(1000 * random);
             System.out.printf("%s : end\n", threadName);
             return threadName + ": future print";
         }
