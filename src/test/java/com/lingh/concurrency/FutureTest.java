@@ -15,22 +15,30 @@ import java.util.concurrent.Future;
 public class FutureTest {
 
     public static class Task implements Callable<String> {
+        private int id;
+        public Task (int id) {
+            this.id = id;
+        }
+        
         @Override
         public String call() throws Exception {
-            String tid = String.valueOf(Thread.currentThread().getId());
-            System.out.printf("Thread#%s : in call\n", tid);
-            return tid;
+            String threadName = String.valueOf(Thread.currentThread().getName()) + "_" + id;
+            System.out.printf("%s : start\n", threadName);
+            Thread.sleep(1000);
+            System.out.printf("%s : end\n", threadName);
+            return threadName + ": future print";
         }
     }
 
     public static void main(String[] args) throws InterruptedException, ExecutionException {
         List<Future<String>> results = new ArrayList<Future<String>>();
-        ExecutorService es = Executors.newCachedThreadPool();
+//        ExecutorService es = Executors.newCachedThreadPool();
+        ExecutorService es = Executors.newFixedThreadPool(5);
         for(int i=0; i<100;i++)
-            results.add(es.submit(new Task()));
+            results.add(es.submit(new Task(i)));
 
         for(Future<String> res : results)
-            System.out.println(res.get());
+            System.out.println("----" + res.get());
     }
 
 }
