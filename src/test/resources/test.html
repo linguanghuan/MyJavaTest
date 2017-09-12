@@ -1,0 +1,461 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>dom4j解析xml字符串实例 - Dream_c - 博客园</title>
+<link type="text/css" rel="stylesheet" href="/bundles/blog-common.css?v=-wBWg2jMfLNV0-ScpDNxGkoH_gCbdW1yTVJLHzPL7HE1"/>
+<link id="MainCss" type="text/css" rel="stylesheet" href="/skins/sea/bundle-sea.css?v=PPe3jt1rcXPno6kucw0iQU2MWF3DbrvubQHRM0FEMas1"/>
+<link id="mobile-style" media="only screen and (max-width: 768px)" type="text/css" rel="stylesheet" href="/skins/sea/bundle-sea-mobile.css?v=UBUxSJf7fcYafkOpqIFgRfnC_l9tq3WwJ49q06_GsG01"/>
+<link title="RSS" type="application/rss+xml" rel="alternate" href="http://www.cnblogs.com/macula/rss"/>
+<link title="RSD" type="application/rsd+xml" rel="EditURI" href="http://www.cnblogs.com/macula/rsd.xml"/>
+<link type="application/wlwmanifest+xml" rel="wlwmanifest" href="http://www.cnblogs.com/macula/wlwmanifest.xml"/>
+<script src="//common.cnblogs.com/script/jquery.js" type="text/javascript"></script>  
+<script type="text/javascript">var currentBlogApp = 'macula', cb_enable_mathjax=false;var isLogined=false;</script>
+<script src="/bundles/blog-common.js?v=zLAewHCaOmEYGOn3iyM1yprOSNEWA2FkU2TsbgxrSSg1" type="text/javascript"></script>
+</head>
+<body>
+<a name="top"></a>
+
+<!--done-->
+<div id="header">
+	
+<!--done-->
+<div class="header">
+	<div class="headerText">
+		<a id="Header1_HeaderTitle" class="headermaintitle" href="http://www.cnblogs.com/macula/"><font size='5'>Code  不归_忆</font></a><br>
+		<MARQUEE scrollAmount=3 scrollDelay=3 align="left" direction="left" width="600" onMouseOver="this.stop()" onMouseOut="this.start()" >孤星独傲邃银河，
+单弦悲曲嵌幽歌。 
+一尘不染轩宇匿，
+人醉我醒奈若何。    
+			<font color="#796931" size="3"> </font>
+
+</marquee>
+	</div>
+</div>
+
+</div>
+
+<div id="mytopmenu" >
+	
+		<div id="mylinks"><a id="blog_nav_sitehome" class="menu" href="http://www.cnblogs.com/">博客园</a> &nbsp;
+<a id="blog_nav_myhome" class="menu" href="http://www.cnblogs.com/macula/">首页</a> &nbsp;
+<a id="blog_nav_newpost" class="menu" rel="nofollow" href="https://i.cnblogs.com/EditPosts.aspx?opt=1">新随笔</a> &nbsp;
+<a id="blog_nav_contact" class="menu" rel="nofollow" href="https://msg.cnblogs.com/send/Dream_c">联系</a> &nbsp;
+<a id="blog_nav_rss" class="menu" href="http://www.cnblogs.com/macula/rss">订阅</a><a id="blog_nav_rss_image" href="http://www.cnblogs.com/macula/rss"><img src="//www.cnblogs.com/images/xml.gif" alt="订阅" /></a>&nbsp;
+<a id="blog_nav_admin" class="menu" rel="nofollow" href="https://i.cnblogs.com/">管理</a>
+</div>
+		<DIV id="mystats"><div id="blog_stats">
+随笔-80&nbsp;
+评论-22&nbsp;
+文章-1&nbsp;
+<!--trackbacks-0-->
+</div></DIV>
+	
+</div>
+<div id="centercontent" >
+	
+<div id="post_detail">
+<div class = "post">
+	<h1 class = "postTitle"><a id="cb_post_title_url" class="postTitle2" href="http://www.cnblogs.com/macula/archive/2011/07/27/2118003.html">dom4j解析xml字符串实例</a></h1>
+	<div id="cnblogs_post_body"><p>&nbsp;</p>
+<p><span style="font-family: 微软雅黑; font-size: medium;"><strong>&nbsp;DOM4J</strong></span></p>
+<p>&nbsp;</p>
+<p><span style="font-family: 微软雅黑; font-size: small;">&nbsp; &nbsp; 与利用DOM、SAX、JAXP机制来解析xml相比，DOM4J 表现更优秀，具有性能优异、功能强大和极端易用使用的特点，只要懂得DOM基本概念，就可以通过dom4j的api文档来解析xml。dom4j是一套开源的api。实际项目中，往往选择dom4j来作为解析xml的利器。</span></p>
+<p>&nbsp;</p>
+<p><span style="font-family: 微软雅黑; font-size: small;">先来看看dom4j中对应XML的DOM树建立的继承关系</span></p>
+<p><span style="font-family: 微软雅黑; font-size: small;">&nbsp;<img src="http://images.cnblogs.com/cnblogs_com/macula/430750/r_bbb.png" alt="" width="536" height="352" /></span>&nbsp;</p>
+<p><span style="font-family: 微软雅黑; font-size: small;">针对于XML标准定义，对应于图2-1列出的内容，dom4j提供了以下实现：</span></p>
+<p><span style="font-family: 微软雅黑; font-size: small;">&nbsp;<img src="http://images.cnblogs.com/cnblogs_com/macula/430750/r_ccc.jpg" alt="" width="535" height="362" /></span>&nbsp;</p>
+<p><span style="font-family: 微软雅黑; font-size: small;">同时，dom4j的NodeType枚举实现了XML规范中定义的node类型。如此可以在遍历xml文档的时候通过常量来判断节点类型了。</span></p>
+<p><span style="font-family: 微软雅黑; font-size: small;">&nbsp;</span></p>
+<p><span style="font-family: 微软雅黑; font-size: small;"><strong>常用API</strong></span></p>
+<p>&nbsp;</p>
+<p><span style="font-family: 微软雅黑; font-size: small;">class org.dom4j.io.SAXReader</span></p>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-family: 微软雅黑; font-size: small;">read&nbsp; 提供多种读取xml文件的方式，返回一个Domcument对象 </span></li>
+</ul>
+<p>&nbsp;</p>
+<p><span style="font-family: 微软雅黑; font-size: small;">interface org.dom4j.Document</span></p>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-family: 微软雅黑; font-size: small;">iterator&nbsp; 使用此法获取node </span></li>
+<li><span style="font-family: 微软雅黑; font-size: small;">getRootElement&nbsp; 获取根节点 </span></li>
+</ul>
+<p>&nbsp;</p>
+<p><span style="font-family: 微软雅黑; font-size: small;">interface org.dom4j.Node </span></p>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-family: 微软雅黑; font-size: small;">getName&nbsp; 获取node名字，例如获取根节点名称为bookstore </span></li>
+<li><span style="font-family: 微软雅黑; font-size: small;">getNodeType&nbsp; 获取node类型常量值，例如获取到bookstore类型为1&mdash;&mdash;Element </span></li>
+<li><span style="font-family: 微软雅黑; font-size: small;">getNodeTypeName&nbsp; 获取node类型名称，例如获取到的bookstore类型名称为Element </span></li>
+</ul>
+<p>&nbsp;</p>
+<p><span style="font-family: 微软雅黑; font-size: small;">interface org.dom4j.Element</span></p>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-family: 微软雅黑; font-size: small;">attributes&nbsp; 返回该元素的属性列表 </span></li>
+<li><span style="font-family: 微软雅黑; font-size: small;">attributeValue&nbsp; 根据传入的属性名获取属性值 </span></li>
+<li><span style="font-family: 微软雅黑; font-size: small;">elementIterator&nbsp; 返回包含子元素的迭代器 </span></li>
+<li><span style="font-family: 微软雅黑; font-size: small;">elements&nbsp; 返回包含子元素的列表 </span></li>
+</ul>
+<p>&nbsp;</p>
+<p><span style="font-family: 微软雅黑; font-size: small;">interface org.dom4j.Attribute</span></p>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-family: 微软雅黑; font-size: small;">getName&nbsp; 获取属性名 </span></li>
+<li><span style="font-family: 微软雅黑; font-size: small;">getValue&nbsp; 获取属性值 </span></li>
+</ul>
+<p>&nbsp;</p>
+<p><span style="font-family: 微软雅黑; font-size: small;">interface org.dom4j.Text</span></p>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-family: 微软雅黑; font-size: small;">getText&nbsp; 获取Text节点值 </span></li>
+</ul>
+<p>&nbsp;</p>
+<p><span style="font-family: 微软雅黑; font-size: small;">interface org.dom4j.CDATA</span></p>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-family: 微软雅黑; font-size: small;">getText&nbsp; 获取CDATA Section值 </span></li>
+</ul>
+<p>&nbsp;</p>
+<p><span style="font-family: 微软雅黑; font-size: small;">interface org.dom4j.Comment</span></p>
+<p>&nbsp;</p>
+<ul>
+<li><span style="font-family: 微软雅黑; font-size: small;">getText&nbsp; 获取注释&nbsp;</span></li>
+</ul>
+<p><span style="font-family: 微软雅黑; font-size: small;"><span class="Apple-style-span" style="line-height: 19px;">&nbsp;</span></span></p>
+<p>&nbsp;</p>
+<p>实例一：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;">  1</span> <span style="color: #008000;">//</span><span style="color: #008000;">先加入dom4j.jar包 </span>
+<span style="color: #008080;">  2</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.util.HashMap;
+</span><span style="color: #008080;">  3</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.util.Iterator;
+</span><span style="color: #008080;">  4</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> java.util.Map;
+</span><span style="color: #008080;">  5</span> 
+<span style="color: #008080;">  6</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> org.dom4j.Document;
+</span><span style="color: #008080;">  7</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> org.dom4j.DocumentException;
+</span><span style="color: #008080;">  8</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> org.dom4j.DocumentHelper;
+</span><span style="color: #008080;">  9</span> <span style="color: #0000ff;">import</span><span style="color: #000000;"> org.dom4j.Element;
+</span><span style="color: #008080;"> 10</span> 
+<span style="color: #008080;"> 11</span> <span style="color: #008000;">/**</span>   
+<span style="color: #008080;"> 12</span> <span style="color: #008000;">* @Title: TestDom4j.java
+</span><span style="color: #008080;"> 13</span> <span style="color: #008000;">* @Package 
+</span><span style="color: #008080;"> 14</span> <span style="color: #008000;">* @Description: 解析xml字符串
+</span><span style="color: #008080;"> 15</span> <span style="color: #008000;">* </span><span style="color: #808080;">@author</span><span style="color: #008000;"> 无处不在
+</span><span style="color: #008080;"> 16</span> <span style="color: #008000;">* @date 2012-11-20 下午05:14:05
+</span><span style="color: #008080;"> 17</span> <span style="color: #008000;">* </span><span style="color: #808080;">@version</span><span style="color: #008000;"> V1.0   
+</span><span style="color: #008080;"> 18</span> <span style="color: #008000;">*/</span>
+<span style="color: #008080;"> 19</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">class</span><span style="color: #000000;"> TestDom4j {
+</span><span style="color: #008080;"> 20</span> 
+<span style="color: #008080;"> 21</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> readStringXml(String xml) {
+</span><span style="color: #008080;"> 22</span>         Document doc = <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 23</span>         <span style="color: #0000ff;">try</span><span style="color: #000000;"> {
+</span><span style="color: #008080;"> 24</span> 
+<span style="color: #008080;"> 25</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 读取并解析XML文档
+</span><span style="color: #008080;"> 26</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> SAXReader就是一个管道，用一个流的方式，把xml文件读出来
+</span><span style="color: #008080;"> 27</span>             <span style="color: #008000;">//</span> 
+<span style="color: #008080;"> 28</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> SAXReader reader = new SAXReader(); </span><span style="color: #008000;">//</span><span style="color: #008000;">User.hbm.xml表示你要解析的xml文档
+</span><span style="color: #008080;"> 29</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> Document document = reader.read(new File("User.hbm.xml"));
+</span><span style="color: #008080;"> 30</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 下面的是通过解析xml字符串的</span>
+<span style="color: #008080;"> 31</span>             doc = DocumentHelper.parseText(xml); <span style="color: #008000;">//</span><span style="color: #008000;"> 将字符串转为XML</span>
+<span style="color: #008080;"> 32</span> 
+<span style="color: #008080;"> 33</span>             Element rootElt = doc.getRootElement(); <span style="color: #008000;">//</span><span style="color: #008000;"> 获取根节点</span>
+<span style="color: #008080;"> 34</span>             System.out.println("根节点：" + rootElt.getName()); <span style="color: #008000;">//</span><span style="color: #008000;"> 拿到根节点的名称</span>
+<span style="color: #008080;"> 35</span> 
+<span style="color: #008080;"> 36</span>             Iterator iter = rootElt.elementIterator("head"); <span style="color: #008000;">//</span><span style="color: #008000;"> 获取根节点下的子节点head
+</span><span style="color: #008080;"> 37</span> 
+<span style="color: #008080;"> 38</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 遍历head节点</span>
+<span style="color: #008080;"> 39</span>             <span style="color: #0000ff;">while</span><span style="color: #000000;"> (iter.hasNext()) {
+</span><span style="color: #008080;"> 40</span> 
+<span style="color: #008080;"> 41</span>                 Element recordEle =<span style="color: #000000;"> (Element) iter.next();
+</span><span style="color: #008080;"> 42</span>                 String title = recordEle.elementTextTrim("title"); <span style="color: #008000;">//</span><span style="color: #008000;"> 拿到head节点下的子节点title值</span>
+<span style="color: #008080;"> 43</span>                 System.out.println("title:" +<span style="color: #000000;"> title);
+</span><span style="color: #008080;"> 44</span> 
+<span style="color: #008080;"> 45</span>                 Iterator iters = recordEle.elementIterator("script"); <span style="color: #008000;">//</span><span style="color: #008000;"> 获取子节点head下的子节点script
+</span><span style="color: #008080;"> 46</span> 
+<span style="color: #008080;"> 47</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 遍历Header节点下的Response节点</span>
+<span style="color: #008080;"> 48</span>                 <span style="color: #0000ff;">while</span><span style="color: #000000;"> (iters.hasNext()) {
+</span><span style="color: #008080;"> 49</span> 
+<span style="color: #008080;"> 50</span>                     Element itemEle =<span style="color: #000000;"> (Element) iters.next();
+</span><span style="color: #008080;"> 51</span> 
+<span style="color: #008080;"> 52</span>                     String username = itemEle.elementTextTrim("username"); <span style="color: #008000;">//</span><span style="color: #008000;"> 拿到head下的子节点script下的字节点username的值</span>
+<span style="color: #008080;"> 53</span>                     String password = itemEle.elementTextTrim("password"<span style="color: #000000;">);
+</span><span style="color: #008080;"> 54</span> 
+<span style="color: #008080;"> 55</span>                     System.out.println("username:" +<span style="color: #000000;"> username);
+</span><span style="color: #008080;"> 56</span>                     System.out.println("password:" +<span style="color: #000000;"> password);
+</span><span style="color: #008080;"> 57</span> <span style="color: #000000;">                }
+</span><span style="color: #008080;"> 58</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;"> 59</span>             Iterator iterss = rootElt.elementIterator("body"); <span style="color: #008000;">//</span><span style="color: #008000;">/获取根节点下的子节点body
+</span><span style="color: #008080;"> 60</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 遍历body节点</span>
+<span style="color: #008080;"> 61</span>             <span style="color: #0000ff;">while</span><span style="color: #000000;"> (iterss.hasNext()) {
+</span><span style="color: #008080;"> 62</span> 
+<span style="color: #008080;"> 63</span>                 Element recordEless =<span style="color: #000000;"> (Element) iterss.next();
+</span><span style="color: #008080;"> 64</span>                 String result = recordEless.elementTextTrim("result"); <span style="color: #008000;">//</span><span style="color: #008000;"> 拿到body节点下的子节点result值</span>
+<span style="color: #008080;"> 65</span>                 System.out.println("result:" +<span style="color: #000000;"> result);
+</span><span style="color: #008080;"> 66</span> 
+<span style="color: #008080;"> 67</span>                 Iterator itersElIterator = recordEless.elementIterator("form"); <span style="color: #008000;">//</span><span style="color: #008000;"> 获取子节点body下的子节点form
+</span><span style="color: #008080;"> 68</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 遍历Header节点下的Response节点</span>
+<span style="color: #008080;"> 69</span>                 <span style="color: #0000ff;">while</span><span style="color: #000000;"> (itersElIterator.hasNext()) {
+</span><span style="color: #008080;"> 70</span> 
+<span style="color: #008080;"> 71</span>                     Element itemEle =<span style="color: #000000;"> (Element) itersElIterator.next();
+</span><span style="color: #008080;"> 72</span> 
+<span style="color: #008080;"> 73</span>                     String banlce = itemEle.elementTextTrim("banlce"); <span style="color: #008000;">//</span><span style="color: #008000;"> 拿到body下的子节点form下的字节点banlce的值</span>
+<span style="color: #008080;"> 74</span>                     String subID = itemEle.elementTextTrim("subID"<span style="color: #000000;">);
+</span><span style="color: #008080;"> 75</span> 
+<span style="color: #008080;"> 76</span>                     System.out.println("banlce:" +<span style="color: #000000;"> banlce);
+</span><span style="color: #008080;"> 77</span>                     System.out.println("subID:" +<span style="color: #000000;"> subID);
+</span><span style="color: #008080;"> 78</span> <span style="color: #000000;">                }
+</span><span style="color: #008080;"> 79</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;"> 80</span>         } <span style="color: #0000ff;">catch</span><span style="color: #000000;"> (DocumentException e) {
+</span><span style="color: #008080;"> 81</span> <span style="color: #000000;">            e.printStackTrace();
+</span><span style="color: #008080;"> 82</span> 
+<span style="color: #008080;"> 83</span>         } <span style="color: #0000ff;">catch</span><span style="color: #000000;"> (Exception e) {
+</span><span style="color: #008080;"> 84</span> <span style="color: #000000;">            e.printStackTrace();
+</span><span style="color: #008080;"> 85</span> 
+<span style="color: #008080;"> 86</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;"> 87</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;"> 88</span> 
+<span style="color: #008080;"> 89</span>     <span style="color: #008000;">/**</span>
+<span style="color: #008080;"> 90</span> <span style="color: #008000;">     * @description 将xml字符串转换成map
+</span><span style="color: #008080;"> 91</span> <span style="color: #008000;">     * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> xml
+</span><span style="color: #008080;"> 92</span> <span style="color: #008000;">     * </span><span style="color: #808080;">@return</span><span style="color: #008000;"> Map
+</span><span style="color: #008080;"> 93</span>      <span style="color: #008000;">*/</span>
+<span style="color: #008080;"> 94</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span><span style="color: #000000;"> Map readStringXmlOut(String xml) {
+</span><span style="color: #008080;"> 95</span>         Map map = <span style="color: #0000ff;">new</span><span style="color: #000000;"> HashMap();
+</span><span style="color: #008080;"> 96</span>         Document doc = <span style="color: #0000ff;">null</span><span style="color: #000000;">;
+</span><span style="color: #008080;"> 97</span>         <span style="color: #0000ff;">try</span><span style="color: #000000;"> {
+</span><span style="color: #008080;"> 98</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 将字符串转为XML</span>
+<span style="color: #008080;"> 99</span>             doc =<span style="color: #000000;"> DocumentHelper.parseText(xml); 
+</span><span style="color: #008080;">100</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 获取根节点</span>
+<span style="color: #008080;">101</span>             Element rootElt =<span style="color: #000000;"> doc.getRootElement(); 
+</span><span style="color: #008080;">102</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 拿到根节点的名称</span>
+<span style="color: #008080;">103</span>             System.out.println("根节点：" +<span style="color: #000000;"> rootElt.getName()); 
+</span><span style="color: #008080;">104</span> 
+<span style="color: #008080;">105</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 获取根节点下的子节点head</span>
+<span style="color: #008080;">106</span>             Iterator iter = rootElt.elementIterator("head"<span style="color: #000000;">); 
+</span><span style="color: #008080;">107</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 遍历head节点</span>
+<span style="color: #008080;">108</span>             <span style="color: #0000ff;">while</span><span style="color: #000000;"> (iter.hasNext()) {
+</span><span style="color: #008080;">109</span> 
+<span style="color: #008080;">110</span>                 Element recordEle =<span style="color: #000000;"> (Element) iter.next();
+</span><span style="color: #008080;">111</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 拿到head节点下的子节点title值</span>
+<span style="color: #008080;">112</span>                 String title = recordEle.elementTextTrim("title"<span style="color: #000000;">); 
+</span><span style="color: #008080;">113</span>                 System.out.println("title:" +<span style="color: #000000;"> title);
+</span><span style="color: #008080;">114</span>                 map.put("title"<span style="color: #000000;">, title);
+</span><span style="color: #008080;">115</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 获取子节点head下的子节点script</span>
+<span style="color: #008080;">116</span>                 Iterator iters = recordEle.elementIterator("script"<span style="color: #000000;">); 
+</span><span style="color: #008080;">117</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 遍历Header节点下的Response节点</span>
+<span style="color: #008080;">118</span>                 <span style="color: #0000ff;">while</span><span style="color: #000000;"> (iters.hasNext()) {
+</span><span style="color: #008080;">119</span>                     Element itemEle =<span style="color: #000000;"> (Element) iters.next();
+</span><span style="color: #008080;">120</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> 拿到head下的子节点script下的字节点username的值</span>
+<span style="color: #008080;">121</span>                     String username = itemEle.elementTextTrim("username"<span style="color: #000000;">); 
+</span><span style="color: #008080;">122</span>                     String password = itemEle.elementTextTrim("password"<span style="color: #000000;">);
+</span><span style="color: #008080;">123</span> 
+<span style="color: #008080;">124</span>                     System.out.println("username:" +<span style="color: #000000;"> username);
+</span><span style="color: #008080;">125</span>                     System.out.println("password:" +<span style="color: #000000;"> password);
+</span><span style="color: #008080;">126</span>                     map.put("username"<span style="color: #000000;">, username);
+</span><span style="color: #008080;">127</span>                     map.put("password"<span style="color: #000000;">, password);
+</span><span style="color: #008080;">128</span> <span style="color: #000000;">                }
+</span><span style="color: #008080;">129</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">130</span> 
+<span style="color: #008080;">131</span>             <span style="color: #008000;">//</span><span style="color: #008000;">获取根节点下的子节点body</span>
+<span style="color: #008080;">132</span>             Iterator iterss = rootElt.elementIterator("body"<span style="color: #000000;">); 
+</span><span style="color: #008080;">133</span>             <span style="color: #008000;">//</span><span style="color: #008000;"> 遍历body节点</span>
+<span style="color: #008080;">134</span>             <span style="color: #0000ff;">while</span><span style="color: #000000;"> (iterss.hasNext()) {
+</span><span style="color: #008080;">135</span>                 Element recordEless =<span style="color: #000000;"> (Element) iterss.next();
+</span><span style="color: #008080;">136</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 拿到body节点下的子节点result值</span>
+<span style="color: #008080;">137</span>                 String result = recordEless.elementTextTrim("result"<span style="color: #000000;">); 
+</span><span style="color: #008080;">138</span>                 System.out.println("result:" +<span style="color: #000000;"> result);
+</span><span style="color: #008080;">139</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 获取子节点body下的子节点form</span>
+<span style="color: #008080;">140</span>                 Iterator itersElIterator = recordEless.elementIterator("form"<span style="color: #000000;">); 
+</span><span style="color: #008080;">141</span>                 <span style="color: #008000;">//</span><span style="color: #008000;"> 遍历Header节点下的Response节点</span>
+<span style="color: #008080;">142</span>                 <span style="color: #0000ff;">while</span><span style="color: #000000;"> (itersElIterator.hasNext()) {
+</span><span style="color: #008080;">143</span>                     Element itemEle =<span style="color: #000000;"> (Element) itersElIterator.next();
+</span><span style="color: #008080;">144</span>                     <span style="color: #008000;">//</span><span style="color: #008000;"> 拿到body下的子节点form下的字节点banlce的值</span>
+<span style="color: #008080;">145</span>                     String banlce = itemEle.elementTextTrim("banlce"<span style="color: #000000;">); 
+</span><span style="color: #008080;">146</span>                     String subID = itemEle.elementTextTrim("subID"<span style="color: #000000;">);
+</span><span style="color: #008080;">147</span> 
+<span style="color: #008080;">148</span>                     System.out.println("banlce:" +<span style="color: #000000;"> banlce);
+</span><span style="color: #008080;">149</span>                     System.out.println("subID:" +<span style="color: #000000;"> subID);
+</span><span style="color: #008080;">150</span>                     map.put("result"<span style="color: #000000;">, result);
+</span><span style="color: #008080;">151</span>                     map.put("banlce"<span style="color: #000000;">, banlce);
+</span><span style="color: #008080;">152</span>                     map.put("subID"<span style="color: #000000;">, subID);
+</span><span style="color: #008080;">153</span> <span style="color: #000000;">                }
+</span><span style="color: #008080;">154</span> <span style="color: #000000;">            }
+</span><span style="color: #008080;">155</span>         } <span style="color: #0000ff;">catch</span><span style="color: #000000;"> (DocumentException e) {
+</span><span style="color: #008080;">156</span> <span style="color: #000000;">            e.printStackTrace();
+</span><span style="color: #008080;">157</span>         } <span style="color: #0000ff;">catch</span><span style="color: #000000;"> (Exception e) {
+</span><span style="color: #008080;">158</span> <span style="color: #000000;">            e.printStackTrace();
+</span><span style="color: #008080;">159</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">160</span>         <span style="color: #0000ff;">return</span><span style="color: #000000;"> map;
+</span><span style="color: #008080;">161</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">162</span> 
+<span style="color: #008080;">163</span>     <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> <span style="color: #0000ff;">void</span><span style="color: #000000;"> main(String[] args) {
+</span><span style="color: #008080;">164</span> 
+<span style="color: #008080;">165</span>         <span style="color: #008000;">//</span><span style="color: #008000;"> 下面是需要解析的xml字符串例子</span>
+<span style="color: #008080;">166</span>         String xmlString = "&lt;html&gt;" + "&lt;head&gt;" + "&lt;title&gt;dom4j解析一个例子&lt;/title&gt;"
+<span style="color: #008080;">167</span>                 + "&lt;script&gt;" + "&lt;username&gt;yangrong&lt;/username&gt;"
+<span style="color: #008080;">168</span>                 + "&lt;password&gt;123456&lt;/password&gt;" + "&lt;/script&gt;" + "&lt;/head&gt;"
+<span style="color: #008080;">169</span>                 + "&lt;body&gt;" + "&lt;result&gt;0&lt;/result&gt;" + "&lt;form&gt;"
+<span style="color: #008080;">170</span>                 + "&lt;banlce&gt;1000&lt;/banlce&gt;" + "&lt;subID&gt;36242519880716&lt;/subID&gt;"
+<span style="color: #008080;">171</span>                 + "&lt;/form&gt;" + "&lt;/body&gt;" + "&lt;/html&gt;"<span style="color: #000000;">;
+</span><span style="color: #008080;">172</span> 
+<span style="color: #008080;">173</span>         <span style="color: #008000;">/*</span>
+<span style="color: #008080;">174</span> <span style="color: #008000;">         * Test2 test = new Test2(); test.readStringXml(xmlString);
+</span><span style="color: #008080;">175</span>          <span style="color: #008000;">*/</span>
+<span style="color: #008080;">176</span>         Map map =<span style="color: #000000;"> readStringXmlOut(xmlString);
+</span><span style="color: #008080;">177</span>         Iterator iters =<span style="color: #000000;"> map.keySet().iterator();
+</span><span style="color: #008080;">178</span>         <span style="color: #0000ff;">while</span><span style="color: #000000;"> (iters.hasNext()) {
+</span><span style="color: #008080;">179</span>             String key = iters.next().toString(); <span style="color: #008000;">//</span><span style="color: #008000;"> 拿到键</span>
+<span style="color: #008080;">180</span>             String val = map.get(key).toString(); <span style="color: #008000;">//</span><span style="color: #008000;"> 拿到值</span>
+<span style="color: #008080;">181</span>             System.out.println(key + "=" +<span style="color: #000000;"> val);
+</span><span style="color: #008080;">182</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">183</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">184</span> 
+<span style="color: #008080;">185</span> }</pre>
+</div>
+<p>　　</p>
+<p>实例二：</p>
+<div class="cnblogs_code">
+<pre><span style="color: #008080;"> 1</span> <span style="color: #008000;">/**</span>
+<span style="color: #008080;"> 2</span> <span style="color: #008000;"> * 解析包含有DB连接信息的XML文件
+</span><span style="color: #008080;"> 3</span> <span style="color: #008000;"> * 格式必须符合如下规范：
+</span><span style="color: #008080;"> 4</span> <span style="color: #008000;"> * 1. 最多三级，每级的node名称自定义；
+</span><span style="color: #008080;"> 5</span> <span style="color: #008000;"> * 2. 二级节点支持节点属性，属性将被视作子节点；
+</span><span style="color: #008080;"> 6</span> <span style="color: #008000;"> * 3. CDATA必须包含在节点中，不能单独出现。
+</span><span style="color: #008080;"> 7</span> <span style="color: #008000;"> *
+</span><span style="color: #008080;"> 8</span> <span style="color: #008000;"> * 示例1&mdash;&mdash;三级显示：
+</span><span style="color: #008080;"> 9</span> <span style="color: #008000;"> * &lt;db-connections&gt;
+</span><span style="color: #008080;">10</span> <span style="color: #008000;"> *         &lt;connection&gt;
+</span><span style="color: #008080;">11</span> <span style="color: #008000;"> *            &lt;name&gt;DBTest&lt;/name&gt;
+</span><span style="color: #008080;">12</span> <span style="color: #008000;"> *            &lt;jndi&gt;&lt;/jndi&gt;
+</span><span style="color: #008080;">13</span> <span style="color: #008000;"> *            &lt;url&gt;
+</span><span style="color: #008080;">14</span> <span style="color: #008000;"> *                &lt;![CDATA[jdbc:mysql://localhost:3306/db_test?useUnicode=true&amp;characterEncoding=UTF8]]&gt;
+</span><span style="color: #008080;">15</span> <span style="color: #008000;"> *             &lt;/url&gt;
+</span><span style="color: #008080;">16</span> <span style="color: #008000;"> *            &lt;driver&gt;org.gjt.mm.mysql.Driver&lt;/driver&gt;
+</span><span style="color: #008080;">17</span> <span style="color: #008000;"> *             &lt;user&gt;test&lt;/user&gt;
+</span><span style="color: #008080;">18</span> <span style="color: #008000;"> *            &lt;password&gt;test2012&lt;/password&gt;
+</span><span style="color: #008080;">19</span> <span style="color: #008000;"> *            &lt;max-active&gt;10&lt;/max-active&gt;
+</span><span style="color: #008080;">20</span> <span style="color: #008000;"> *            &lt;max-idle&gt;10&lt;/max-idle&gt;
+</span><span style="color: #008080;">21</span> <span style="color: #008000;"> *            &lt;min-idle&gt;2&lt;/min-idle&gt;
+</span><span style="color: #008080;">22</span> <span style="color: #008000;"> *            &lt;max-wait&gt;10&lt;/max-wait&gt;
+</span><span style="color: #008080;">23</span> <span style="color: #008000;"> *            &lt;validation-query&gt;SELECT 1+1&lt;/validation-query&gt;
+</span><span style="color: #008080;">24</span> <span style="color: #008000;"> *         &lt;/connection&gt;
+</span><span style="color: #008080;">25</span> <span style="color: #008000;"> * &lt;/db-connections&gt;
+</span><span style="color: #008080;">26</span> <span style="color: #008000;"> *
+</span><span style="color: #008080;">27</span> <span style="color: #008000;"> * 示例2&mdash;&mdash;节点属性：
+</span><span style="color: #008080;">28</span> <span style="color: #008000;"> * &lt;bookstore&gt;
+</span><span style="color: #008080;">29</span> <span style="color: #008000;"> *         &lt;book category="cooking"&gt;
+</span><span style="color: #008080;">30</span> <span style="color: #008000;"> *            &lt;title lang="en"&gt;Everyday Italian&lt;/title&gt;
+</span><span style="color: #008080;">31</span> <span style="color: #008000;"> *            &lt;author&gt;Giada De Laurentiis&lt;/author&gt;
+</span><span style="color: #008080;">32</span> <span style="color: #008000;"> *            &lt;year&gt;2005&lt;/year&gt;
+</span><span style="color: #008080;">33</span> <span style="color: #008000;"> *            &lt;price&gt;30.00&lt;/price&gt;
+</span><span style="color: #008080;">34</span> <span style="color: #008000;"> *         &lt;/book&gt;
+</span><span style="color: #008080;">35</span> <span style="color: #008000;"> *
+</span><span style="color: #008080;">36</span> <span style="color: #008000;"> *         &lt;book category="children" title="Harry Potter" author="J K. Rowling" year="2005" price="$29.9"/&gt;
+</span><span style="color: #008080;">37</span> <span style="color: #008000;"> * &lt;/bookstore&gt;
+</span><span style="color: #008080;">38</span> <span style="color: #008000;"> *
+</span><span style="color: #008080;">39</span> <span style="color: #008000;"> * </span><span style="color: #808080;">@param</span><span style="color: #008000;"> configFile
+</span><span style="color: #008080;">40</span> <span style="color: #008000;"> * </span><span style="color: #808080;">@return</span>
+<span style="color: #008080;">41</span> <span style="color: #008000;"> * </span><span style="color: #808080;">@throws</span><span style="color: #008000;"> Exception
+</span><span style="color: #008080;">42</span>  <span style="color: #008000;">*/</span>
+<span style="color: #008080;">43</span> <span style="color: #0000ff;">public</span> <span style="color: #0000ff;">static</span> List&lt;Map&lt;String, String&gt;&gt; parseDBXML(String configFile) <span style="color: #0000ff;">throws</span><span style="color: #000000;"> Exception {
+</span><span style="color: #008080;">44</span>     List&lt;Map&lt;String, String&gt;&gt; dbConnections = <span style="color: #0000ff;">new</span> ArrayList&lt;Map&lt;String, String&gt;&gt;<span style="color: #000000;">();
+</span><span style="color: #008080;">45</span>     InputStream is = Parser.<span style="color: #0000ff;">class</span><span style="color: #000000;">.getResourceAsStream(configFile);
+</span><span style="color: #008080;">46</span>     SAXReader saxReader = <span style="color: #0000ff;">new</span><span style="color: #000000;"> SAXReader();
+</span><span style="color: #008080;">47</span>     Document document =<span style="color: #000000;"> saxReader.read(is);
+</span><span style="color: #008080;">48</span>     Element connections =<span style="color: #000000;"> document.getRootElement();
+</span><span style="color: #008080;">49</span> 
+<span style="color: #008080;">50</span>     Iterator&lt;Element&gt; rootIter =<span style="color: #000000;"> connections.elementIterator();
+</span><span style="color: #008080;">51</span>     <span style="color: #0000ff;">while</span><span style="color: #000000;"> (rootIter.hasNext()) {
+</span><span style="color: #008080;">52</span>         Element connection =<span style="color: #000000;"> rootIter.next();
+</span><span style="color: #008080;">53</span>         Iterator&lt;Element&gt; childIter =<span style="color: #000000;"> connection.elementIterator();
+</span><span style="color: #008080;">54</span>         Map&lt;String, String&gt; connectionInfo = <span style="color: #0000ff;">new</span> HashMap&lt;String, String&gt;<span style="color: #000000;">();
+</span><span style="color: #008080;">55</span>         List&lt;Attribute&gt; attributes =<span style="color: #000000;"> connection.attributes();
+</span><span style="color: #008080;">56</span>         <span style="color: #0000ff;">for</span> (<span style="color: #0000ff;">int</span> i = 0; i &lt; attributes.size(); ++i) { <span style="color: #008000;">//</span><span style="color: #008000;"> 添加节点属性</span>
+<span style="color: #008080;">57</span> <span style="color: #000000;">            connectionInfo.put(attributes.get(i).getName(), attributes.get(i).getValue());
+</span><span style="color: #008080;">58</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">59</span>         <span style="color: #0000ff;">while</span> (childIter.hasNext()) { <span style="color: #008000;">//</span><span style="color: #008000;"> 添加子节点</span>
+<span style="color: #008080;">60</span>             Element attr =<span style="color: #000000;"> childIter.next();
+</span><span style="color: #008080;">61</span> <span style="color: #000000;">            connectionInfo.put(attr.getName().trim(), attr.getText().trim());
+</span><span style="color: #008080;">62</span> <span style="color: #000000;">        }
+</span><span style="color: #008080;">63</span> <span style="color: #000000;">        dbConnections.add(connectionInfo);
+</span><span style="color: #008080;">64</span> <span style="color: #000000;">    }
+</span><span style="color: #008080;">65</span> 
+<span style="color: #008080;">66</span>     <span style="color: #0000ff;">return</span><span style="color: #000000;"> dbConnections;
+</span><span style="color: #008080;">67</span> }</pre>
+</div>
+<p>&nbsp;</p>
+<p>&nbsp;</p></div><div id="MySignature"></div>
+<div class="clear"></div>
+<div id="blog_post_info_block">
+<div id="BlogPostCategory"></div>
+<div id="EntryTag"></div>
+<div id="blog_post_info">
+</div>
+<div class="clear"></div>
+<div id="post_next_prev"></div>
+</div>
+
+
+	<div class = "postDesc">posted on <span id="post-date">2011-07-27 11:05</span> <a href='http://www.cnblogs.com/macula/'>Dream_c</a> 阅读(<span id="post_view_count">...</span>) 评论(<span id="post_comment_count">...</span>)  <a href ="https://i.cnblogs.com/EditPosts.aspx?postid=2118003" rel="nofollow">编辑</a> <a href="#" onclick="AddToWz(2118003);return false;">收藏</a></div>
+</div>
+<script type="text/javascript">var allowComments=true,cb_blogId=91103,cb_entryId=2118003,cb_blogApp=currentBlogApp,cb_blogUserGuid='336cd185-ee96-e011-a53f-842b2b196315',cb_entryCreatedDate='2011/7/27 11:05:00';loadViewCount(cb_entryId);</script>
+
+</div><a name="!comments"></a><div id="blog-comments-placeholder"></div><script type="text/javascript">var commentManager = new blogCommentManager();commentManager.renderComments(0);</script>
+<div id='comment_form' class='commentform'>
+<a name='commentform'></a>
+<div id='divCommentShow'></div>
+<div id='comment_nav'><span id='span_refresh_tips'></span><a href='javascript:void(0);' onclick='return RefreshCommentList();' id='lnk_RefreshComments' runat='server' clientidmode='Static'>刷新评论</a><a href='#' onclick='return RefreshPage();'>刷新页面</a><a href='#top'>返回顶部</a></div>
+<div id='comment_form_container'></div>
+<div class='ad_text_commentbox' id='ad_text_under_commentbox'></div>
+<div id='ad_t2'></div>
+<div id='opt_under_post'></div>
+<div id='cnblogs_c1' class='c_ad_block'></div>
+<div id='under_post_news'></div>
+<div id='cnblogs_c2' class='c_ad_block'></div>
+<div id='under_post_kb'></div>
+<div id='HistoryToday' class='c_ad_block'></div>
+<script type='text/javascript'>
+    fixPostBody();
+    setTimeout(function () { incrementViewCount(cb_entryId); }, 50);
+    deliverAdT2();
+    deliverAdC1();
+    deliverAdC2();    
+    loadNewsAndKb();
+    loadBlogSignature();
+    LoadPostInfoBlock(cb_blogId, cb_entryId, cb_blogApp, cb_blogUserGuid);
+    GetPrevNextPost(cb_entryId, cb_blogId, cb_entryCreatedDate);
+    loadOptUnderPost();
+    GetHistoryToday(cb_blogId, cb_blogApp, cb_entryCreatedDate);   
+</script>
+</div>
+
+
+</div>
+<div id="leftcontent">
+	
+		<DIV id="leftcontentcontainer">
+			
+<!--done-->
+<div class="newsItem">
+	<div id="blog-news"></div><script type="text/javascript">loadBlogNews();</script>
+</div>
+
+			<div id="blog-calendar" style="display:none"></div><script type="text/javascript">loadBlogDefaultCalendar();</script><br>
+			<div id="blog-sidecolumn"></div><script type="text/javascript">loadBlogSideColumn();</script></DIV>
+	
+</div>
+
+<!--done-->
+<div class="footer">
+	Powered by: <a href="http://www.cnblogs.com">博客园</a>	模板提供：<a href="http://blog.hjenglish.com">沪江博客</a>
+	Copyright &copy;2017 Dream_c
+</div>
+
+
+
+</body>
+</html>
