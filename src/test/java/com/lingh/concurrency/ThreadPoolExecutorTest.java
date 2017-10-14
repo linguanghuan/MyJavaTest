@@ -39,6 +39,7 @@ public class ThreadPoolExecutorTest {
         for (int i = 0; i < 40; i++) {
             TestTask testTask = new TestTask(i);
             executor.execute(testTask);
+//            executor.submit(testTask);   submit和execute有什么区别呢?
         }
         System.out.println("------------------");
         System.out.println(threadQueue.size());
