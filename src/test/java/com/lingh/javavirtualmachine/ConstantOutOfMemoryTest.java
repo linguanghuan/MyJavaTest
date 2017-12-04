@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * ³£Á¿³ØÄÚ´æÒç³öÌ½¾¿ http://www.cnblogs.com/dingyingsi/p/3760447.h
+ * å¸¸é‡æ± å†…å­˜æº¢å‡ºæ¢ç©¶ http://www.cnblogs.com/dingyingsi/p/3760447.h
  * @VM args : -XX:PermSize=10K -XX:MaxPermSize=10K
  * @author test
  *
@@ -27,7 +27,7 @@ public class ConstantOutOfMemoryTest {
 }
 
 /**
- 1.7µÄjava°æ±¾ÏÂÃ»Ğ§¹û
+ 1.7çš„javaç‰ˆæœ¬ä¸‹æ²¡æ•ˆæœ
 Java HotSpot(TM) 64-Bit Server VM warning: ignoring option PermSize=10K; support was removed in 8.0
 Java HotSpot(TM) 64-Bit Server VM warning: ignoring option MaxPermSize=10K; support was removed in 8.0
 */

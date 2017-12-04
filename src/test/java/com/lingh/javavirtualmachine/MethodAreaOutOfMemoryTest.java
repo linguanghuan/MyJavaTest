@@ -1,6 +1,6 @@
 package com.lingh.javavirtualmachine;
 /**
- * ·½·¨ÇøÒç³ö²âÊÔ http://www.cnblogs.com/dingyingsi/p/3760447.html
+ * æ–¹æ³•åŒºæº¢å‡ºæµ‹è¯• http://www.cnblogs.com/dingyingsi/p/3760447.html
  * @VM args : -XX:PermSize=10M -XX:MaxPermSize=10M
  * @author test
  *
